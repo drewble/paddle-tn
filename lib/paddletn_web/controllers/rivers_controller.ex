@@ -14,7 +14,21 @@ defmodule PaddletnWeb.RiversController do
     req = Poison.decode!(response.body)
 
     render(conn, "show.html",
-      messenger: List.first(req["value"]["timeSeries"])["sourceInfo"]["siteName"]
+      messenger: %{
+        name: List.first(req["value"]["timeSeries"])["sourceInfo"]["siteName"],
+        flow:
+          List.first(List.first(List.first(req["value"]["timeSeries"])["values"])["value"])[
+            "value"
+          ] <>
+            " " <>
+            List.first(req["value"]["timeSeries"])["variable"]["unit"]["unitCode"],
+        height:
+          List.first(List.first(Enum.at(req["value"]["timeSeries"], 1)["values"])["value"])[
+            "value"
+          ] <>
+            " " <>
+            Enum.at(req["value"]["timeSeries"], 1)["variable"]["unit"]["unitCode"]
+      }
     )
   end
 
@@ -27,7 +41,7 @@ defmodule PaddletnWeb.RiversController do
     |> HTTPoison.get(
       [Accept: "Application/json; Charset=utf-8"],
       ssl: [{:versions, [:"tlsv1.2"]}],
-      recv_timeout: 500
+      recv_timeout: 5000
     )
   end
 

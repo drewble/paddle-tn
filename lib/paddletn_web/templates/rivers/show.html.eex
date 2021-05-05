@@ -1,3 +1,5 @@
 <div class="phx-hero">
-  <h2>Hello World, from <%= @messenger %></h2>
+  <h2>Hello World, from <%= @messenger.name %></h2>
+  <p>Flow Rate: <%= @messenger.flow %></p>
+  <p>Gauge Height: <%= @messenger.height %></p>
 </div>
