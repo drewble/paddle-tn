@@ -7,9 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :paddletn,
-  ecto_repos: [Paddletn.Repo]
-
 # Configures the endpoint
 config :paddletn, PaddletnWeb.Endpoint,
   url: [host: "localhost"],

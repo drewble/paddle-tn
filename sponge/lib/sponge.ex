@@ -79,23 +79,66 @@ defmodule Sponge do
   end
 
   defp get_site_name(message) do
-    List.first(message["value"]["timeSeries"])["sourceInfo"]["siteName"]
+    message
+    |> get_in([
+      "value",
+      "timeSeries",
+      Access.at(0),
+      "sourceInfo",
+      "siteName"
+      ])
   end
 
   defp get_flow_value(message) do
-    List.first(List.first(List.first(message["value"]["timeSeries"])["values"])["value"])["value"]
+    message
+    |> get_in([
+      "value",
+      "timeSeries",
+      Access.at(0),
+      "values",
+      Access.at(0),
+      "value",
+      Access.at(0),
+      "value"
+    ])
   end
 
   defp get_flow_unit(message) do
-    List.first(message["value"]["timeSeries"])["variable"]["unit"]["unitCode"]
+    message
+    |> get_in([
+      "value",
+      "timeSeries",
+      Access.at(0),
+      "variable",
+      "unit",
+      "unitCode"
+      ])
   end
 
   defp get_height_value(message) do
-    List.first(List.first(Enum.at(message["value"]["timeSeries"], 1)["values"])["value"])["value"]
+    message
+    |> get_in([
+      "value",
+      "timeSeries",
+      Access.at(1),
+      "values",
+      Access.at(0),
+      "value",
+      Access.at(0),
+      "value"
+      ])
   end
 
   defp get_height_unit(message) do
-    Enum.at(message["value"]["timeSeries"], 1)["variable"]["unit"]["unitCode"]
+    message
+    |> get_in([
+      "value",
+      "timeSeries",
+      Access.at(1),
+      "variable",
+      "unit",
+      "unitCode"
+      ])
   end
 
 end

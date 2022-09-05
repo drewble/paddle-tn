@@ -7,8 +7,6 @@ defmodule Paddletn.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Paddletn.Repo,
       # Start the Telemetry supervisor
       PaddletnWeb.Telemetry,
       # Start the PubSub system

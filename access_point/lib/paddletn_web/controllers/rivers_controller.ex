@@ -6,7 +6,8 @@ defmodule PaddletnWeb.RiversController do
   end
 
   def show(conn, %{"messenger" => messenger}) do
-    render(conn, "show.html", %{messenger: Sponge.fetch(messenger)})
+    {:ok, %{} = messenger} = Sponge.fetch(messenger)
+    render(conn, "show.html", %{messenger: messenger})
   end
 
 end
